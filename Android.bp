@@ -13,6 +13,7 @@ cc_library_headers {
     ramdisk_available: true,
     vendor_ramdisk_available: true,
     host_supported: true,
+    min_sdk_version: "29",
     apex_available: [
         "//apex_available:anyapex",
         "//apex_available:platform",
@@ -40,11 +41,23 @@ cc_prebuilt_library {
         "//apex_available:platform",
     ],
     min_sdk_version: "29",
-    shared: {
-        srcs: ["src/lib/libbase.so"],
-    },
-    static: {
-        srcs: ["src/lib/libbase.a"],
+    multilib: {
+        lib32: {
+            shared: {
+                srcs: ["src/lib/libbase.so"],
+            },
+            static: {
+                srcs: ["src/lib/libbase.a"],
+            },
+        },
+        lib64: {
+            shared: {
+                srcs: ["src/lib64/libbase.so"],
+            },
+            static: {
+                srcs: ["src/lib64/libbase.a"],
+            },
+        },
     },
 }
 
